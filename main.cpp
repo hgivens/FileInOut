@@ -25,24 +25,30 @@ int main() {
 /*This function allows you to pick what function you want to use*/
 int menu(){
   int i;
-  string options = "--MENU OPTIONS--\n1) Enter Grades \n 2) View All Grades \n 3) View Average Grades \n 0) EXIT \n";
+  string options = "----MENU OPTIONS----\n\n 1) Enter Grades \n 2) View All Grades \n 3) View Average Grades \n 0) EXIT \n";
   cout << options;
   cout << "Please choose one: \n";
   cin >> i;
+  cout << endl;
 while(i != 0){
   if(i == 1){
     enterGrade();
+    cout << endl;
     cout << options;
     cin >> i;
+    cout << endl;
   }else if(i == 2){
     viewGrades();
+    cout << endl;
     cout << options;
      cin >> i;
+     cout << endl;
   }else if(i == 3){
     viewMidGrade();
-    
+    cout << endl;
     cout << options;
     cin >> i; 
+    cout << endl;
   }else{
     cout <<" invalade choice \n";
     break;
@@ -58,24 +64,29 @@ int enterGrade(){
   int  grade1, grade2, grade3, grade4, grade5;
   ofstream fileOut;
   fileOut.open("grades.txt", ios::app);//ios::app means to append to the file instead of making a new. 
-  cout << "would you like to add grades and name? \n 1)Yes \n 0) No\n";
+  cout << "would you like to add grades and name? \n 1) Yes \n 0) No\n";
   cin >> keepGoing;
+  cout << endl;
 
   while(keepGoing != 0 ){
     if(keepGoing > 0 ){
-      cout << "please enter in a name and 5 grades with spacing (if done enter 0): \n";
-    cin >> stName >> grade1 >> grade2 >> grade3 >> grade4 >> grade5 ;
-    
-    fileOut << stName << " " << grade1<< " "  << grade2<< " "  << grade3<< " "  << grade4<< " "  << grade5 << endl;
+      cout << "please enter in a name and 5 grades with spacing: \n";
+      cin >> stName >> grade1 >> grade2 >> grade3 >> grade4 >> grade5 ;
+      cout << endl;
+
+      fileOut << stName << " " << grade1<< " "  << grade2<< " "  << grade3<< " "  << grade4<< " "  << grade5 << endl;
+
+      cout << "would you like to add Another? \n 1) Yes \n 0) No\n";
+      cin >> keepGoing;
+      cout << endl;
+
     }else{
-      cout << menu();
+      menu();
     }
     
   }
   fileOut.close();
-  menu();
-
-return 0;
+    return 0;
 }
 
 /*This function allows you to view all the grades on document grades.txt*/
@@ -101,12 +112,16 @@ int viewMidGrade(){
   string stName;
   int  grade1, grade2, grade3, grade4, grade5;
   int  gradeAvg;
-  gradeAvg = (grade1 + grade2 + grade3 + grade4 + grade5)/5;
+  int sum ;
+  
    ifstream fileIn;
   fileIn.open("grades.txt");
 while(!fileIn.eof()){
+    sum = grade1 + grade2 + grade3 + grade4 + grade5;
+    gradeAvg = sum / 5;
     cout << stName << " " << gradeAvg << endl;
-    fileIn >> stName >> gradeAvg;
+    fileIn >> stName >> grade1 >> grade2 >> grade3 >> grade4 >> grade5;
+    
     
   }
   fileIn.close();
